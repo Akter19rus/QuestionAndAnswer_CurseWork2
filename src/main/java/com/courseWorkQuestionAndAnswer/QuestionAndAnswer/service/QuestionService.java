@@ -2,14 +2,14 @@ package com.courseWorkQuestionAndAnswer.QuestionAndAnswer.service;
 
 import com.courseWorkQuestionAndAnswer.QuestionAndAnswer.models.Question;
 
-import java.util.Collections;
+import java.util.List;
 
 public interface QuestionService {
     Question add(String question, String answer);
 
     Question remove(Question question);
 
-    Collections<Question> getAll();
+    List<Question> getAll();
 
     Question getRandomQuestion();
 }
