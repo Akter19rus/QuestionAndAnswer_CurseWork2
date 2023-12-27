@@ -30,10 +30,10 @@ public class QuestionServiceTest {
 
 
     @Test
-    public void add() {
+    public void addTest() {
         when(javaQuestionService.add(QUESTION, ANSWER))
                 .thenReturn(question);
-        Assertions.assertEquals (question, out.add(QUESTION, ANSWER));
+        Assertions.assertEquals(question, out.add(QUESTION, ANSWER));
         verify(javaQuestionService, times(1)).add(QUESTION, ANSWER);
     }
 
@@ -63,7 +63,7 @@ public class QuestionServiceTest {
     @Test
     public void getAllTest() {
         when(javaQuestionService.getAll())
-                .thenReturn(questionsArr, out.getAll());
-        assertIterableEquals(questionsArr, out.getAll());
+                .thenReturn(questionsArr);
+        Assertions.assertIterableEquals(questionsArr, out.getAll());
     }
 }

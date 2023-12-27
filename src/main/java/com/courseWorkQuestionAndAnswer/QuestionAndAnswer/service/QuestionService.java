@@ -12,4 +12,6 @@ public interface QuestionService {
     List<Question> getAll();
 
     Question getRandomQuestion();
+
+    int size();
 }

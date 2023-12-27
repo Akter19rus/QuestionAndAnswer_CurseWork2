@@ -1,5 +1,6 @@
 package com.courseWorkQuestionAndAnswer.QuestionAndAnswer.service;
 
+import com.courseWorkQuestionAndAnswer.QuestionAndAnswer.exceptions.QuestionAlreadyAddedException;
 import com.courseWorkQuestionAndAnswer.QuestionAndAnswer.exceptions.StorageIsFullException;
 import com.courseWorkQuestionAndAnswer.QuestionAndAnswer.models.Question;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,10 @@ public class ExaminerServiceImpl implements ExaminerService {
     @Override
     public Set<Question> getQuestions(int amount) {
         Set<Question> questionsRandomList = new HashSet<>();
+
+        if (amount > questionService.size()) {
+            throw new QuestionAlreadyAddedException("превышено количество вопросов!");
+        }
 
         while (questionsRandomList.size() < amount) {
             questionsRandomList.add(questionService.getRandomQuestion());

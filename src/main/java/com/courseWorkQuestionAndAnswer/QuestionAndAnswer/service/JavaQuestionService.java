@@ -40,18 +40,15 @@ public class JavaQuestionService implements QuestionService {
                     "Это означает, что элементы, которые хранятся в коллекции, основаны на значениях, добавленных в коллекцию. ")
     ));
 
-    public Question add(Question question) {
-        if (questions.contains(question)) {
-            throw new QuestionAlreadyAddedException("Данный вопрос уже существует");
-        }
-        questions.add(question);
-        return question;
-    }
-
     @Override
     public Question add(String question, String answer) {
-        return add(new Question(question, answer));
+        Question q = new Question(question, answer);
 
+        if (questions.contains(q)) {
+            throw new QuestionAlreadyAddedException("Данный вопрос уже существует");
+        }
+        questions.add(q);
+        return q;
     }
 
     @Override
