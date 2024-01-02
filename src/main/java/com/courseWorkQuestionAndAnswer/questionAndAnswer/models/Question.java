@@ -1,4 +1,4 @@
-package com.courseWorkQuestionAndAnswer.QuestionAndAnswer.models;
+package com.courseWorkQuestionAndAnswer.questionAndAnswer.models;
 
 import java.util.Objects;
 
