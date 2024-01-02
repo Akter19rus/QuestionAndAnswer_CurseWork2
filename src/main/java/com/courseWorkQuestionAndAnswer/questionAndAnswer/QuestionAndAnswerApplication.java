@@ -1,4 +1,4 @@
-package com.courseWorkQuestionAndAnswer.QuestionAndAnswer;
+package com.courseWorkQuestionAndAnswer.questionAndAnswer;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
