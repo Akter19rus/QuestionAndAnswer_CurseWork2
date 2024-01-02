@@ -8,69 +8,71 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
+import static java.lang.System.out;
+import static org.apache.coyote.http11.Constants.QUESTION;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static org.skyscreamer.jsonassert.JSONAssert.assertEquals;
 
 public class QuestionServiceTest {
-    private final QuestionLoad questionLoad = mock(QuestionLoad.class);
-    private QuestionService out;
+    QuestionService out = new JavaQuestionService(new QuestionLoad());
 
-    @BeforeEach
-    public void out() {
-        out = new JavaQuestionService(questionLoad);
+    public static Stream<Arguments> paramsForTest() {
+        return Stream.of(Arguments.of("Вопрос", "Ответ"),
+                Arguments.of("Вопрос1", "Ответ1"),
+                Arguments.of("Вопрос2", "Ответ2"));
     }
 
-    public final String QUESTION = "Вопрос";
-    public final String ANSWER = "Ответ";
-    private final Question question = new Question(QUESTION, ANSWER);
-    private final List questionsArr = new ArrayList<>(List.of(question));
-
-
-
-    @Test
-    public void addTest() {
-        when(questionLoad.add(QUESTION, ANSWER))
-                .thenReturn(question);
-        Assertions.assertEquals(question, out.add(QUESTION, ANSWER));
-        verify(questionLoad, times(1)).add(QUESTION, ANSWER);
-//        out.add(question.getQuestion(), question.getAnswer());
-//        Assertions.assertTrue(out.getAll().contains(question));
-//        Assertions.assertEquals(out.getAll().size(), 11);
+    @ParameterizedTest
+    @MethodSource("paramsForTest")
+    public void addTest(String question, String answer) {
+        out.add(question, answer);
+        assertTrue(out.getAll().contains(new Question(question, answer)));
+        Assertions.assertEquals(out.getAll().size(), 11);
     }
 
     @Test
     public void addThrowTest() {
-        when(questionLoad.add(any(), any()))
-                .thenThrow(QuestionAlreadyAddedException.class);
-        assertThrows(QuestionAlreadyAddedException.class, () -> out.add(QUESTION, ANSWER));
+        out.add("Вопрос3", "Ответ3");
+        assertThrows(QuestionAlreadyAddedException.class,
+                () -> {
+                    out.add("Вопрос3", "Ответ3");
+                });
+    }
+
+    @ParameterizedTest
+    @MethodSource("paramsForTest")
+    void removeTest(String question, String answer) {
+        out.add(question, answer);
+        assertTrue(out.remove(new Question(question, answer))
+                .equals(new Question(question, answer)));
+        assertThrows(QuestionNotFoundException.class, () ->
+                out.find(question));
+
+    }
+
+    @ParameterizedTest
+    @MethodSource("paramsForTest")
+    public void getAllTest(String question, String answer) {
+        out.add(question, answer);
+        assertTrue(out.getAll().contains(new Question(question, answer)));
+        Assertions.assertEquals(out.getAll().size(), 11);
     }
 
     @Test
-    public void removeTest() {
-        when(questionLoad.remove(question))
-                .thenReturn(question);
-        Assertions.assertEquals(question, out.remove(question));
-        verify(questionLoad, times(1)).remove(question);
-    }
-
-    @Test
-    public void removeThrowTest() {
-        when(questionLoad.remove(any()))
-                .thenThrow(QuestionNotFoundException.class);
-        assertThrows(QuestionNotFoundException.class, () -> out.remove(question));
-    }
-
-    @Test
-    public void getAllTest() {
-        when(questionLoad.getAll())
-                .thenReturn(questionsArr);
-        Assertions.assertIterableEquals(questionsArr, out.getAll());
+    public void findTest() {
+        out.add("Вопрос3", "Ответ3");
+        Assertions.assertEquals(out.find("Вопрос3"),
+                new Question("Вопрос3", "Ответ3"));
+        assertThrows(QuestionNotFoundException.class, () ->
+                out.find("Вопрос"));
     }
 }

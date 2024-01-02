@@ -12,4 +12,6 @@ public interface QuestionLoadInterface {
     Question remove(Question question);
 
     Collection<Question> getAll();
+
+    Question find(String question);
 }

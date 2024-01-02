@@ -1,7 +1,5 @@
 package com.courseWorkQuestionAndAnswer.questionAndAnswer.service;
 
-import com.courseWorkQuestionAndAnswer.questionAndAnswer.exceptions.QuestionAlreadyAddedException;
-import com.courseWorkQuestionAndAnswer.questionAndAnswer.exceptions.QuestionNotFoundException;
 import com.courseWorkQuestionAndAnswer.questionAndAnswer.loading.QuestionLoad;
 import com.courseWorkQuestionAndAnswer.questionAndAnswer.models.Question;
 import org.springframework.stereotype.Service;
@@ -10,6 +8,7 @@ import java.util.*;
 
 @Service
 public class JavaQuestionService implements QuestionService {
+    private final Random random = new Random();
     private final QuestionLoad questionLoad;
 
     public JavaQuestionService(QuestionLoad questionLoad) {
@@ -32,13 +31,17 @@ public class JavaQuestionService implements QuestionService {
 
     @Override
     public Question getRandomQuestion() {
-        Random random = new Random();
-
         int i = random.nextInt(questionLoad.getAll().size() + 1);
         return getAll().get(i);
     }
 
+    @Override
     public int size() {
         return questionLoad.getAll().size();
+    }
+
+    @Override
+    public Question find(String question) {
+        return questionLoad.find(question);
     }
 }

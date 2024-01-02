@@ -3,7 +3,6 @@ package com.courseWorkQuestionAndAnswer.questionAndAnswer.service;
 import com.courseWorkQuestionAndAnswer.questionAndAnswer.models.Question;
 
 import java.util.Collection;
-import java.util.List;
 
 public interface QuestionService {
     Question add(String question, String answer);
@@ -15,4 +14,6 @@ public interface QuestionService {
     Question getRandomQuestion();
 
     int size();
+
+    Question find(String question);
 }

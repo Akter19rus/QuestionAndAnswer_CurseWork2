@@ -60,4 +60,12 @@ public class QuestionLoad implements QuestionLoadInterface {
     public List<Question> getAll() {
         return loadQuestion;
     }
+
+    @Override
+    public Question find(String question) {
+        return loadQuestion.stream()
+                .filter(e ->e.getQuestion().equals(question))
+                .findFirst()
+                .orElseThrow(QuestionNotFoundException :: new);
+    }
 }

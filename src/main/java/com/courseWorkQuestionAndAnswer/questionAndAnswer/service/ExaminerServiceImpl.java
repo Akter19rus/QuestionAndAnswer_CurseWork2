@@ -2,18 +2,15 @@ package com.courseWorkQuestionAndAnswer.questionAndAnswer.service;
 
 import com.courseWorkQuestionAndAnswer.questionAndAnswer.exceptions.QuestionAlreadyAddedException;
 import com.courseWorkQuestionAndAnswer.questionAndAnswer.models.Question;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.Set;
-
+@RequiredArgsConstructor
 @Service
 public class ExaminerServiceImpl implements ExaminerService {
     private final QuestionService questionService;
-
-    public ExaminerServiceImpl(QuestionService questionService) {
-        this.questionService = questionService;
-    }
 
     @Override
     public Set<Question> getQuestions(int amount) {
