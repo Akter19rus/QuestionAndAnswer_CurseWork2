@@ -1,23 +1,16 @@
-package com.courseWorkQuestionAndAnswer.QuestionAndAnswer.service;
+package com.courseWorkQuestionAndAnswer.questionAndAnswer.loading;
 
-import com.courseWorkQuestionAndAnswer.QuestionAndAnswer.exceptions.QuestionAlreadyAddedException;
-import com.courseWorkQuestionAndAnswer.QuestionAndAnswer.exceptions.QuestionNotFoundException;
-import com.courseWorkQuestionAndAnswer.QuestionAndAnswer.models.Question;
+import com.courseWorkQuestionAndAnswer.questionAndAnswer.exceptions.QuestionAlreadyAddedException;
+import com.courseWorkQuestionAndAnswer.questionAndAnswer.exceptions.QuestionNotFoundException;
+import com.courseWorkQuestionAndAnswer.questionAndAnswer.models.Question;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
-import java.util.*;
 import java.util.ArrayList;
 import java.util.List;
-@Repository
-@Service
-public class JavaQuestionService implements QuestionService {
-    private final JavaQuestionService javaQuestionService;
-    public JavaQuestionService(JavaQuestionService javaQuestionService) {
-        this.javaQuestionService = javaQuestionService;
-    }
 
-    List<Question> questions = new ArrayList<>(List.of(
+@Repository
+public class QuestionLoad implements QuestionLoadInterface {
+    private final ArrayList<Question> loadQuestion = new ArrayList<>(List.of(
             new Question("Какие особенности есть у Java",
                     "ООП концепты, Кроссплатформенность, Высокая производительность, Мультипоточность"),
             new Question("Что такое наследование?",
@@ -38,22 +31,26 @@ public class JavaQuestionService implements QuestionService {
                     "Это значит, что группа элементов отсортирована в коллекции на основе данных элемента коллекции."),
             new Question("Что подразумевается под ordered в коллекциях?",
                     "Это означает, что элементы, которые хранятся в коллекции, основаны на значениях, добавленных в коллекцию. ")
+
     ));
 
     @Override
-    public Question add(String question, String answer) {
-        Question q = new Question(question, answer);
-
-        if (questions.contains(q)) {
+    public Question add(Question question) {
+        if (loadQuestion.contains(question)) {
             throw new QuestionAlreadyAddedException("Данный вопрос уже существует");
         }
-        questions.add(q);
-        return q;
+        loadQuestion.add(question);
+        return question;
+    }
+
+    @Override
+    public Question add(String question, String answer) {
+        return add(new Question(question, answer));
     }
 
     @Override
     public Question remove(Question question) {
-        if (questions.remove(question)) {
+        if (loadQuestion.remove(question)) {
             return question;
         }
         throw new QuestionNotFoundException("Данного вопроса не существует!");
@@ -61,18 +58,6 @@ public class JavaQuestionService implements QuestionService {
 
     @Override
     public List<Question> getAll() {
-        return questions;
-    }
-
-    @Override
-    public Question getRandomQuestion() {
-        Random random = new Random();
-
-        int i = random.nextInt(getAll().size() + 1);
-        return getAll().get(i);
-    }
-
-    public int size() {
-        return getAll().size();
+        return loadQuestion;
     }
 }

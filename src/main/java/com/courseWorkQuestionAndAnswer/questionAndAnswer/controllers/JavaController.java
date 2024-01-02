@@ -1,7 +1,7 @@
-package com.courseWorkQuestionAndAnswer.QuestionAndAnswer.controllers;
+package com.courseWorkQuestionAndAnswer.questionAndAnswer.controllers;
 
-import com.courseWorkQuestionAndAnswer.QuestionAndAnswer.models.Question;
-import com.courseWorkQuestionAndAnswer.QuestionAndAnswer.service.QuestionService;
+import com.courseWorkQuestionAndAnswer.questionAndAnswer.models.Question;
+import com.courseWorkQuestionAndAnswer.questionAndAnswer.service.QuestionService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;

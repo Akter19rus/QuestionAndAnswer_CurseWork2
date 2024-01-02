@@ -1,8 +1,7 @@
-package com.courseWorkQuestionAndAnswer.QuestionAndAnswer.service;
+package com.courseWorkQuestionAndAnswer.questionAndAnswer.service;
 
-import com.courseWorkQuestionAndAnswer.QuestionAndAnswer.exceptions.QuestionAlreadyAddedException;
-import com.courseWorkQuestionAndAnswer.QuestionAndAnswer.exceptions.StorageIsFullException;
-import com.courseWorkQuestionAndAnswer.QuestionAndAnswer.models.Question;
+import com.courseWorkQuestionAndAnswer.questionAndAnswer.exceptions.QuestionAlreadyAddedException;
+import com.courseWorkQuestionAndAnswer.questionAndAnswer.models.Question;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

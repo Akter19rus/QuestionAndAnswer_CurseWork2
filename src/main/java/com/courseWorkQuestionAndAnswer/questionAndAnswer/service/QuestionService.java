@@ -1,7 +1,8 @@
-package com.courseWorkQuestionAndAnswer.QuestionAndAnswer.service;
+package com.courseWorkQuestionAndAnswer.questionAndAnswer.service;
 
-import com.courseWorkQuestionAndAnswer.QuestionAndAnswer.models.Question;
+import com.courseWorkQuestionAndAnswer.questionAndAnswer.models.Question;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface QuestionService {
@@ -9,7 +10,7 @@ public interface QuestionService {
 
     Question remove(Question question);
 
-    List<Question> getAll();
+    Collection<Question> getAll();
 
     Question getRandomQuestion();
 

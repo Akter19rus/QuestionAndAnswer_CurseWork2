@@ -1,8 +1,7 @@
-package com.courseWorkQuestionAndAnswer.QuestionAndAnswer.service;
+package com.courseWorkQuestionAndAnswer.questionAndAnswer.service;
 
-import com.courseWorkQuestionAndAnswer.QuestionAndAnswer.exceptions.QuestionAlreadyAddedException;
-import com.courseWorkQuestionAndAnswer.QuestionAndAnswer.exceptions.StorageIsFullException;
-import com.courseWorkQuestionAndAnswer.QuestionAndAnswer.models.Question;
+import com.courseWorkQuestionAndAnswer.questionAndAnswer.exceptions.QuestionAlreadyAddedException;
+import com.courseWorkQuestionAndAnswer.questionAndAnswer.models.Question;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -28,13 +27,5 @@ public class ExaminerServiceImpl implements ExaminerService {
             questionsRandomList.add(questionService.getRandomQuestion());
         }
         return questionsRandomList;
-
-//        if (amount > questionService.getAll().size() + 1) {
-//            throw new StorageIsFullException("Превышено максимальное количество вопросов!");
-//        }
-//        else if (questionsRandomList.size() < amount) {
-//            questionsRandomList.add(questionService.getRandomQuestion());
-//        }                                                                 НЕ ПОДХОДИТ
-//        return questionsRandomList;
     }
 }
